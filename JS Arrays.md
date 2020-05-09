@@ -87,3 +87,63 @@ sum
 // -> 6
 
 ```
+
+In the next example we want to build a list of people's names. We use a *for* loop to add each name to an array. This reqires looking elements up by their indexes i.
+
+``` javascript
+var people = [
+  {name: 'Amir'},
+  {name: 'Betty'}
+];
+var names = [];
+for (var i = 0; i < people.length; i++ ){
+  names.push(people[i].name)
+}
+names
+```
+
+forEach lets us write the same code without the index variable i. We pass a function to forEach, which runs the function on each element.
+
+``` javascript
+var people = [
+  {name: 'Cindy'},
+  {name: 'Dalili'}
+]
+var names = [];
+people.forEach(person => {
+  names.push(person.name)
+})
+names;
+
+```
+
+We Can modify the arrays elements during the forEach
+
+``` javascript
+'cat'.toUpperCase()
+'CAT'
+
+var people = [
+  {name:'Ebony'},
+  {name: 'Fang'}
+]
+people.forEach(person => {
+  person.name = person.name.toUpperCase()
+})
+people[0].name
+
+```
+
+The second argument to forEach's callback is the item's index.
+
+``` javascript
+var names = ['Gabriel', 'Hana']
+var userIDs = [10, 11]
+var result = ''
+names.forEach((name, index) => {
+  result += name + userIDs[index]
+})
+result
+// => 'Gabriel10Hana11'
+```
+
