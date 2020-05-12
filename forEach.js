@@ -67,3 +67,12 @@ names.forEach((name, index) => {
 console.log("#5", result)
 
 
+var people = [
+  {name: "Cindy"},
+  {name: 'Dalili'}
+];
+var names = [];
+people.forEach(person => {
+  names.push(person.name)
+})
+names
