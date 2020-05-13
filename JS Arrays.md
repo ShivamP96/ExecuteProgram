@@ -64,11 +64,28 @@ Sometimes we want to access a subsection of an array. For that, we use the slice
 
 ``` javascript
 >[10, 20, 30, 40, 50].slice(3)
-[40, 50] 
+// -> [40, 50] 
+
+
+['a', 'b', 'c'].slice(1)
+// -> ['b', 'c'] 
 
 ```
+Slice can take a second argument, **end**. It slices all elements from **begin** up to **end**, but not including **end**
 
+``` javascript
+[10, 20, 30, 40, 50].slice(1, 3)
+// -> [20, 30]
+```
 
+We can **slice** beyond the end of the array. It gives the same result as slicing right up to the last element.
+
+``` javascript
+[10, 20].slice(0, 3)
+// -> [10, 20] 
+
+```
+If our begin index is past the end of the array, we get an empty result
 
 ---
 ## For Each
