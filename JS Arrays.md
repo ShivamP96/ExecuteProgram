@@ -57,7 +57,7 @@ a
 ```
 
 ---
-## Slice
+## Slice (won't affect the original array)
 
 
 Sometimes we want to access a subsection of an array. For that, we use the slice method. It takes an argument begin, which is the index to start from.
@@ -85,7 +85,32 @@ We can **slice** beyond the end of the array. It gives the same result as slicin
 // -> [10, 20] 
 
 ```
-If our begin index is past the end of the array, we get an empty result
+If our begin index is past the end of the array, we get an empty result.
+Think of it like this. The array [10, 20] has indexes 0 and 1. So what's in indexes 2 through 3? There's nothing there. The slice of those indexes is empty.
+
+``` javascript
+[10, 20].slice(2, 3)
+// ->[]
+
+```
+With no arguments, **slice** will slice all elements of the array. This effecitvely copies the array. If we change the orginal, it won't affect the copy. Likewise, if we change the copy it won't affect the original
+
+``` javascript
+
+var orig = [10, 20, 30]
+var copy = orig.slice()
+copy[0] = 1
+orig
+// -> [10, 20, 30]
+
+var orig = [10, 20, 30]
+var copy = orig.slice()
+orig[0] = 1
+copy
+// -> [10, 20, 30] 
+
+```
+Slice is quite complex, but copying arrays is its most common use.
 
 ---
 ## For Each
