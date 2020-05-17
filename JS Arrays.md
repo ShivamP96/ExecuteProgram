@@ -138,6 +138,35 @@ We already saw what happens when we slice past the end of the array.
 // -> [] 
 
 ```
+With negative indexes, we can also slice before the beginning of the arrya. The result will only include elements in the original array. It won't invent additional elements to satisfy our out-of-bounds index. 
+
+``` javascript
+[10, 20].slice(-100)
+// ->[10, 20]
+```
+
+Both **begin** and **end** can be negative. Rememeber that the **end** element isn't included in the slice.
+
+``` javascript
+
+[10, 20, 30].slice(-3, -1)
+// -> [10, 20]
+
+
+[10, 20, 30, 40, 50].slice(-3, -1)
+// -> [30, 40]
+
+```
+We can mix positive and negative **begin** and **end** indexes.
+
+``` javascript
+[10, 20, 30, 40, 50].slice(1, -1)
+// -> [20, 30, 40]
+
+[10, 20, 30, 40, 50].slice(-3, 4)
+// -> [30, 40]
+
+```
 
 
 ---
