@@ -112,6 +112,34 @@ copy
 ```
 Slice is quite complex, but copying arrays is its most common use.
 
+
+---
+## Slice with negative arguments (slice uses indecies)
+We can **slice** from the end of the array by using negative indexes. You can think of a negative index **-2** as **array.length - 2**. Or you can think of it as "two away from the end.
+
+This example means "slice from the second-to-last element to the end"
+
+``` javascript
+const nums = [10, 20, 30, 40, 50]
+nums.slice(nums.length - 2)
+// -> [40, 50]
+
+[10, 20, 30, 40, 50].slice(-2)
+// -> [40, 50]
+
+[10, 20].slice(-2)
+// -> [10, 20]
+```
+
+We already saw what happens when we slice past the end of the array.
+
+``` javascript
+ [10, 20].slice(4, 5)
+// -> [] 
+
+```
+
+
 ---
 ## For Each
 
@@ -189,3 +217,107 @@ result
 // => 'Gabriel10Hana11'
 ```
 
+---
+
+## Concat (original array isn't changed)
+
+In many languages, + will combine two arrays. That's not true on javascript. Trying to do array1 + array2 is usually a mistake. Javascript willl convert the arrays into strings before adding them.
+
+``` javascript
+
+[1, 2].toString()
+// ->'1,2' 
+
+[1, 2] + [3]
+// -> '1,23'
+
+
+[1, 2] + [3, 4]
+// -> '1,23,4'
+
+[1,2,3] + [4,5,6]
+// -> '1,2,34,5,6'
+```
+
+However we can combine arrays properly with **concat**. It stands for concatenate, which means "link together". It creates a new array containing all of the elements from the old arrays. 
+
+
+``` javascript
+[1, 2].concat([3, 4])
+//-> [1, 2, 3, 4] 
+```
+**concat** takes multiple arguments, so we can combine many arrays if needed:
+
+``` javascript
+[1,2].concat([3,4],[5,6])
+// -> [1,2,3,4,5,6]
+```
+
+**concat** can also be used to add single elements to the end of an array. If its argument isn't an array, it will be added as a single element. 
+
+``` javascript
+
+
+[1, 2].concat(3)
+// ->[1, 2, 3]
+
+```
+
+**concat** builds and returns a new array.  The original array aren't changed. 
+
+``` javascript
+
+const a1 = [1,2]
+const a2 = [3,4]
+a1.concat(a2);
+a1
+// -> [1,2]
+
+```
+
+---
+## Map
+
+**map** calls a function on each element of an array. It returns a new array of the values returned from those function calls.
+
+``` javascript
+[1, 2, 3].map(num => num * 10)
+// -> [10, 20, 30]
+
+
+['a', 'b', 'c'].map(x => x.toUpperCase())
+// -> ['A', 'B', 'C']
+```
+**map** doesn't change the original array
+
+``` javascript
+const nums = [1,2,3]
+nums.map(num => num * 10)
+nums[0]
+// -> 1
+```
+In a previous lesson, we built an array of people's names using forEach. Here is that example again
+
+``` javascript
+
+const people = [
+  {name: 'Amir'},
+  {name: 'Betty'},
+]
+const names = []
+people.forEach(person => {
+  names.push(person.name)
+})
+names
+// -> ['Amir', 'Betty']
+```
+
+There is an easier way. With **map** we don't need to create and modify a new array/ Instead we can build the new array directly.
+
+``` javascript
+const people = [
+  {name: 'Amir'},
+  {name: 'Betty'}
+]
+people.map(person => person.name)
+```
