@@ -350,3 +350,28 @@ const people = [
 ]
 people.map(person => person.name)
 ```
+
+---
+
+## Join
+
+Sometimes we want to turn an array of strings  into a single string. We can **join** them together.
+
+``` javascript
+
+['a','b','c'].join('')
+// -> 'abc'
+
+
+['Amir', 'Betty'].join('')
+// -> 'AmirBetty'
+```
+
+If we omit **join's** argument, the strings are joined with **','** by default/
+
+``` javascript
+
+['Amir', 'Betty'].join()
+// -> 'Amir,Betty'
+
+```
