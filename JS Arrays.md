@@ -418,7 +418,177 @@ const abc = ['a', 'b', 'c']
 abc.slice(abc.indexOf('c'))
 ['c']
 
-abc.slice(abc.indexOf('c'))
+const abc = ['a', 'b', 'c']
+abc.slice(abc.indexOf('d'))
+['c']
+```
 
+We can fix that bug by checking for -1
+
+``` javascript
+const abc = ['a','b','c']
+function sliceFromElement(array,element) {
+  const index = array.indexOf(element)
+  if (index === -1) {
+    return null
+  } else {
+    return arry.slice(index)
+  }
+}
+sliceFromElement(abc,'d')
+// -> null
+```
+---
+
+## Reduce
+Sometimes we want to apply a function many times. Let's start with a simple example. 
+add:
+
+``` javascript
+function add(a,b) { return a + b}
+add(1,20)
+// -> 21
+
+function add(a,b) {return a + b}
+add(add(1,20), 300)
+// -> 321
+```
+
+This becomes tediuous when we have an array of numbers. 
+
+``` javascript
+
+function add( a, b) {return a + b}
+const nums = [1,20,300,4000];
+let sum = 0
+nums.forEach(num => {
+  sum = sum + num
+})
+sum
+// -> 4321
+```
+
+We can simplify this with **reduce**. First, lets see the **reduce** version to appreciate how small it is. This does the same thing as our loop above.
+
+``` javascript
+[1,20,300,4000].reduce(
+  (sum,current) => sum + current, 0
+)
+//  -> 4321
 
 ```
+
+We're "reducing" our array of many numbers to a single number: the sum
+
+We pass two arguements to **reduce**. The first is a functoin that adds a new number to our running sum. The second argument is 0, the inital value for the sum.
+
+Our function is called once for each number. Each time, it adds the number to the running sum. We can see this by *instrumenting* our function to store all of the sums. (The verb "instrument" means "attach measurement instruments to". It's a great way to learn how unfamiliar systems work!)
+
+``` javascript
+const intermediateSums = [];
+[1,20,300].reduce(
+  (sum, current) => {
+    sum = sum + current
+    intermediateSums.push(sum)
+    return sum
+  }, 0
+)
+intermediateSums
+// -> [1, 21, 321]
+}
+
+
+const intermediateSums = [];
+[1, 20, 300, 4000].reduce(
+  (sum, current) => {
+    sum = sum + current
+    intermediateSums.push(sum)
+    return sum
+  },
+  0
+)
+intermediateSums
+[1, 21, 321, 4321]
+```
+
+We can make our **reduce** call shorter by omitting the second argument. Then array element 0 will be used as the sum. For many uses or **reduce**, including computing sums, that's OK. 
+
+``` javascript
+[1, 20, 300].reduce((sum, current) => sum + current)
+// -> 321
+```
+
+With no second argument, our function is never called for array element 0. To sum [1,20,300], this happens: 
+*sum is set to element 0 of the array, which is 1.
+*callback(1, 20) is called, returning 21 as the new sum.
+*callback(21, 300) is called, returning 321 as the new sum.
+*There are no more array elements, so reduce returns 321
+
+``` javascript
+const intermediateSums = [];
+[1, 20, 300, 4000].reduce(
+  (sum, current) => {
+    sum = sum + current
+    intermediateSums.push(sum)
+    return sum
+  }
+)
+intermediateSums
+//  -> [21, 321, 4321]
+```
+
+Reduce isn't limited to numbers. We can use it to emulate the behaviour of join, which works on strings. 
+
+``` javascript
+['x', 'y', 'z'].join('a')
+// -> 'xayaz'
+
+['x','y','z'].reduce((joined, current) => joined + 'a' + current)
+
+//  -> 'xayaz'
+
+```
+(The first arguement of our callback function is **joined**, not **sum**. It would be strange to call it "sum", since we're no longer adding.)
+
+We can write our own general-purpose **join** using **reduce**
+
+``` javascript
+function join(array, separator) {
+  return array.reduce(
+    (joined, separator) => joined + separator + current)
+}
+join(['x', 'y', 'z'], '_')
+//  -> 'x_y_z'
+```
+
+Reduce is a very abstract method: it can do many different things. The ways to use abstract methods aren't always obvious at first. But once you're comfortable with them, you see applications everwhere. 
+
+From now on, we name the callback's first argument **acc**. (Previously, it was named **sum** or **joined**.) **acc** stands for "accumulator", becuase it's accumulating the result. Sometimes there are obvious better names, like **sum** or **joined**. But for some of these examples, there's no obvious good name. 
+
+If one of these gives you trouble, try writing it out as a table. At each step in the **reduce**, what are the values of **acc** and **current**? Remember that reduce just calls the provided function over and over. 
+
+``` javascript
+
+[1, 200, 30].reduce((acc, current) => Math.max(acc, current))
+// -> 200
+
+
+[1, 200, 30, 4000].reduce((acc, current) => Math.max(acc, current))
+// -> 4000
+
+[true, false, true].reduce((acc, current) => acc && current)
+// -> false
+
+
+[true, false, true].reduce((acc, current) => acc || current)
+// -> true
+ 
+[false, false, false].reduce((acc, current) => acc || current)
+// -> false
+
+[[1], [2,3], [4]].reduce((aac, current) => acc.concat(current))
+// -> [1,2,3,4]
+```
+
+Don't be afraid to use **reduce** in simple cases. But sometimes you'll struggle to read or write a complex **reduce**. In those cases, it's best to give up on the **reduce** and use a loop. Six easy lines of al loop code are better than one confusing **reduce** line. 
+
