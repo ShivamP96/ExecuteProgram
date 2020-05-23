@@ -375,3 +375,50 @@ If we omit **join's** argument, the strings are joined with **','** by default/
 // -> 'Amir,Betty'
 
 ```
+---
+## Index of 
+
+We can ask an array for the index of a particular value. (Indexes start at 0, as usual.)
+
+``` javascript
+const abc = ['a', 'b', 'c']
+abc.indexOf('a')
+// -> 0 
+```
+
+If the value occurs multiple times in the array, we'll get the index of the first occurrence
+
+```javascript
+const abc = ['a', 'b', 'c', 'c']
+abc.indexOf('c')
+// -> 2 
+```
+
+If we ask for an element that isn't in the array, we get **-1**
+
+
+``` javascript
+const abc = ['a', 'b','c']
+abc.indexOf('d')
+// -> -1
+```
+
+It's important to check your **indexOf** calls for that -1 return value! Otherwise you can intrduce subtle bugs. Here's an example.
+
+Let's try to slice an array from a certain element forward. We don't check -1 from indexOf, so that -1 might be used as an index. (A hint in case you get stuck: [1, 2, 3].slice(-1) returns [3].)
+``` javascript
+
+
+const abc = ['a', 'b', 'c']
+abc.slice(abc.indexOf('b'))
+// -> ['b', 'c']
+
+
+const abc = ['a', 'b', 'c']
+abc.slice(abc.indexOf('c'))
+['c']
+
+abc.slice(abc.indexOf('c'))
+
+
+```
