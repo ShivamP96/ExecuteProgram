@@ -644,4 +644,80 @@ fillDynamically(2)
 ['d', 'd'] 
 
 ```
+---
 
+## Filter
+
+In prodecural languages, we often make decision inside loops. Javascirpt is a prodecural language. 
+
+``` javascript
+
+
+const users = [
+  {name: 'Amir', admin: true},
+  {name: 'Betty', admin: false},
+]
+const admins = []
+for (let i=0; i<users.length; i++) {
+  const user = users[i]
+  if (user.admin) {
+    admins.push(user)
+  }
+}
+admins.map(user => user.name)
+// -> ['Amir']
+
+```
+That loop was long and difficult to read. We can simpllify it by using **filter**.
+
+**filter** calls a function on each element in an array. If the function returns **true**, then **filter** keeps that element. Otherwise, it discards the element. 
+
+``` javascript
+const users = [
+  {name: 'Amir', admin: true},
+  {name: 'Betty', admin: false},
+]
+users.filter(user => user.admin).map(user => user.name)
+// -> ['Amir']
+
+const arrays = [
+  [1, 2],
+  [2, 3],
+  [3, 4],
+]
+arrays.filter(array => array.includes(2))
+// -> [[1, 2], [2, 3]]
+
+```
+Javascript provides **filter** for us, but it's simple to implement.
+
+``` javascript
+function filter(array, callback) {
+  const results = [];
+  for (let i=0; i<array.length; i++) {
+    if (callback(array[i])){
+      results.push(array[i])
+    }
+  }
+  return results
+}
+filter([1,2,3], x => x!==2)
+
+// -> [1,3]
+```
+
+**filter** builds a new array. The orginal array isn't changed.
+
+``` javascript
+
+const users = [
+  {name: 'Amir', admin: true},
+  {name: 'Betty', admin: false},
+]
+
+users.filter(user => user.admin)
+users.map(user => user.name)
+
+// -> ['Amir', 'Betty']
+
+```
