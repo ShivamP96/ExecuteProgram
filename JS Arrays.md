@@ -597,3 +597,51 @@ Don't be afraid to use **reduce** in simple cases. But sometimes you'll struggle
 ## New and fill
 
 The **fill** method fills an arrray with a given value. Any existing values will be overwritten by that value.
+
+``` javascript
+
+const a = [1, 2]
+a.fill(3)
+//  -> [3, 3]
+
+
+const a = ['a', 'b', 'c']
+a.fill('d')
+// -> ['d', 'd', 'd']
+```
+
+What if we don't know how many "d"s we need in advance? First,  we can create an array of a given size.
+
+``` javascript
+ 
+const size = 1 + 2
+new Array(size).length
+// -> 3
+
+
+```
+There's nothing in an array created in this wa. If we ask for it's elements, we'll get **undefined**
+
+``` javascript
+const size = 1 + 2
+new Array(size)[0]
+// -> undefined
+```
+We can fill this pre-sized array with values. This is a common reason to do a **new Array(size)** : to immediately fill it. 
+
+``` javascript
+const side = 1 + 2
+new Array(size).fill('d')
+// -> ['d','d','d']
+```
+Now we can create a dynamically-sized filled array.
+
+``` javascript
+function fillDynamically(size) {
+  return new Array(size).fill('d')
+}
+fillDynamically(2)
+['d', 'd'] 
+
+```
+
