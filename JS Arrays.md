@@ -592,3 +592,8 @@ If one of these gives you trouble, try writing it out as a table. At each step i
 
 Don't be afraid to use **reduce** in simple cases. But sometimes you'll struggle to read or write a complex **reduce**. In those cases, it's best to give up on the **reduce** and use a loop. Six easy lines of al loop code are better than one confusing **reduce** line. 
 
+---
+
+## New and fill
+
+The **fill** method fills an arrray with a given value. Any existing values will be overwritten by that value.
