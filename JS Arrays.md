@@ -480,7 +480,7 @@ We can simplify this with **reduce**. First, lets see the **reduce** version to 
 
 We're "reducing" our array of many numbers to a single number: the sum
 
-We pass two arguements to **reduce**. The first is a functoin that adds a new number to our running sum. The second argument is 0, the inital value for the sum.
+We pass two arguements to **reduce**. The first is a function that adds a new number to our running sum. The second argument is 0, the inital value for the sum.
 
 Our function is called once for each number. Each time, it adds the number to the running sum. We can see this by *instrumenting* our function to store all of the sums. (The verb "instrument" means "attach measurement instruments to". It's a great way to learn how unfamiliar systems work!)
 
@@ -646,7 +646,7 @@ fillDynamically(2)
 ```
 ---
 
-## Filter
+## Filter (keep what is true)
 
 In prodecural languages, we often make decision inside loops. Javascirpt is a prodecural language. 
 
