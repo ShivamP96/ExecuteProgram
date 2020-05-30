@@ -721,3 +721,63 @@ users.map(user => user.name)
 // -> ['Amir', 'Betty']
 
 ```
+
+---
+
+## Find Index
+
+The **indexOf** method gives us the index of an element.
+
+``` javascript
+['a', 'b', 'c'].indexOf('b')
+// -> 1 
+```
+
+Sometimes, we don't know the complete value of element that we want. For example, maybe we ant to find the first non-empty string. For that, we can use **findIndex**. 
+
+``` javascript
+['', 'a'].findIndex(
+  string => string.length !== 0
+)
+// -> 1
+
+
+const users = [
+  {name: 'Amir', admin: false},
+  {name: 'Betty', admin: true},
+]
+users.findIndex(user => user.admin === true)
+// -> 1 
+```
+
+
+it's OK if multiple elements match our provided function. **findIndex** will find the first matching element. 
+
+``` javascript
+['a', 'b', 'a', 'b'].findIndex(string => string === 'a')
+// -> 0 
+```
+
+The callback function passed to **findIndex** gets three arguments. Usually you only need the first, which is the current array element. But sometimes the others are useful too. The second argument is the element's index in the array. 
+
+This example find the index of the first 'a' after the 2nd element. 
+
+``` javascript
+['a', 'c', 'b', 'a'].findIndex(
+(elem, index) => index > 1 && elem === 'a')
+// -> 3 
+```
+The whole array is passed to our callback as its third arugment. This is rarely needed, but it's there just in case. 
+
+``` javascript
+['a', 'b', 'c'].findIndex(
+  (element, index, array) => array[index] === 'c')
+// -> 2 
+```
+
+if our function doesn't match any elements, **findIndex** returns **-1** . This is like **indexOf**, which returns **-1** when nothing is found. As with **indexOf**, this can be a source of bugs. Remember to check for **-1**!
+
+``` javascript
+['a', 'b', 'c'].findIndex(element => element === 'd')
+// -> -1 
+```
