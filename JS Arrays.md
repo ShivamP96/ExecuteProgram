@@ -781,3 +781,126 @@ if our function doesn't match any elements, **findIndex** returns **-1** . This 
 ['a', 'b', 'c'].findIndex(element => element === 'd')
 // -> -1 
 ```
+
+---
+## Sort (changes orginal array)
+
+The **sort** method puts elements in order. It changes the array that it's called on. In the example below, the array will be sorted alphabetically. 
+
+``` javascript
+
+const strings = ['c', 'a', 'b']
+strings.sort()
+strings
+// -> ['a', 'b', 'c']
+```
+
+**sort** returns the sorted array. When using it in this way, remember that it changes the orginal array
+
+``` javascript
+const strings = ['c', 'a', 'b']
+strings.sort()
+// -> 
+```
+
+Often, we want a sorted copy of an array without changing the orginal. We can use **slice()** to copy the arrray, then sort the copy. 
+
+``` javascript
+const strings = ['c', 'a', 'b']
+strings.slice().sort()
+// -> ['a', 'b', 'c']
+```
+
+Javascirpt often converts values in surpising ways. For example, **10 > 3** is true, but **'10' < '3'** is also true. This is becuase strings are compared character by character. The comparison ends as soon as the two characters differ.  **'1' < '3'** , so **'10' < '3'** . The '0' in '10' is never even examined. 
+
+``` javascript
+'3' > '10'
+// -> true 
+
+'200' > '3'
+// -> false 
+```
+
+**sort** converts the array's elements to strings, then compares them. Because it compares strings, it inheris the comparison problem above. 
+
+This makes JavaScript's **sort** unsafe for numbers and most other data. Most other programming languages don't have this problem, so be careful!
+
+
+``` javascript
+[3, 10].sort()
+// -> [10, 3] 
+
+[3, 10, 200].sort()
+// -> [10, 200, 3] 
+```
+
+There's a way to fix this problem. We can write out own comparison function, then give it to **sort**. Our function takes two array elements **(a,b)** as arguments, and returns: 
+
+* 0 if the two elements are equal.
+* A number greater than zero if a is greater.
+* A number smaller than zero if b is greater.
+
+``` javascript
+
+[10, 200, 3].sort((a, b) => {
+  if (a === b) {
+    return 0
+  } else if (a > b) {
+    return 1
+  } else {
+    return -1
+  }
+})
+// -> [3, 10, 200] 
+```
+
+The above comparison function is very wordy. Fortunately, there's a shorthand that we can use. It relies on a trick: 
+
+* If **a==b**, then **a - b == 0**
+* If **a > b**, then **a - b > 0**
+* If **a < b**, then **a - b < 0**
+
+``` javascript
+
+3 - 10 > 0
+// -> false 
+
+3 - 200 > 0
+// -> false 
+
+10 - 3 > 0
+// -> true 
+
+200 - 3 > 0
+// -> true 
+
+200 - 10 > 0
+// -> true
+
+10 - 10 === 0
+// -> true
+
+```
+If you can remember the **a - b** part, you can probably remember this trick. However, you'll probably also forget the order of the a and b. Sometimes, you'll write **(a, b) => b - a**. It's fine; everyone forgets the order. Just check it in the console when the time comes
+
+We can use the comparison function for more than just numbers. For example, We can sort arrays by their lengths.
+
+``` javascript
+[[0, 0], [], [0, 0, 0], [0]].sort((a, b) => a.length - b.length)
+// -> [[], [0], [0, 0], [0, 0, 0]]
+
+```
+Sometimes we want to sort objects by a property.
+
+``` javascript
+
+const users = [
+  {name: 'Amir', loginAttempts: 5},
+  {name: 'Betty', loginAttempts: 3}
+]
+users.sort((user1, user2) => {
+  return user1.loginAttempts - user2.loginAttempts
+}).map(user => user.name)
+// -> ['Betty', 'Amir']
+```
+
