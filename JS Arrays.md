@@ -904,3 +904,41 @@ users.sort((user1, user2) => {
 // -> ['Betty', 'Amir']
 ```
 
+---
+# Find
+
+Sometimes we need to find an element that matches a description. We already saw **findIndex**, which finds the index of an element. Now let's write out own **find** that finds the matching element itself. 
+
+
+
+``` javascript
+function find(array, callback) {
+  const index = array.findIndex(callback)
+  if (index === -1) {
+    return undefined 
+  } else {
+    return array[index]
+  }
+}
+find([5,6,7]), num => num / 2 == 3)
+// -> 6
+```
+
+Fortunately, a find method like outs is built into Array. We don't have to write it ourselves. 
+
+``` javascript
+[5, 6, 7].find(num => num / 2 === 3)
+// -> 6
+```
+
+We can use this to find objects with certain properties
+
+
+```
+const users = [
+  {name: 'Amir', admin: false},
+  {name: 'Betty', admin: true}
+]
+users.find(user => user.admin).name
+// -> 'Betty'
+```
